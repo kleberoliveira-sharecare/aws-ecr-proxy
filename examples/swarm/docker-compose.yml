@@ -2,11 +2,11 @@ version: '3.7'
 
 services:
   ecr-proxy:
-    image: myaser/ecr-proxy:1.3.0
+    image: kleberoliveira/ecr-proxy
     ports:
-      - published: 80
+      - published: 8080
         target: 80
-      - published: 443
+      - published: 8443
         target: 443
     healthcheck:
       test: wget http://localhost/ping -q -O - || exit 1
@@ -14,6 +14,8 @@ services:
       timeout: 5s
       retries: 2
       start_period: 60s
+    volumes:      
+      - ./registry.password:/registry.password
     secrets:
       - source: ecr_config_file
         target: config

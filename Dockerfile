@@ -3,9 +3,10 @@ FROM nginx:1.12.0-alpine
 RUN apk -v --update add \
         python \
         py-pip \
+        apache2-utils \
         && \
     pip install --upgrade pip awscli==1.11.92 && \
-    apk -v --purge del py-pip && \
+    apk -v --purge del py-pip && \ 
     rm /var/cache/apk/*
 
 ADD configs/nginx/nginx.conf /etc/nginx/nginx.conf
